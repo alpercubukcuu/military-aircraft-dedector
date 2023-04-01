@@ -12,7 +12,7 @@ test_files = "airplane-dataset-trans/test/"
 img = load_img(test_files + "A-10_Thunderbolt/image (198).png")
 print(img_to_array(img).shape)
 plt.imshow(img)
-#plt.show()
+#plt.show() Deneme Görseli
 
 
 # Veri arttırma yöntemleri
