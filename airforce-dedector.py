@@ -12,10 +12,10 @@ test_files = "airplane-dataset-trans/test/"
 img = load_img(test_files + "A-10_Thunderbolt/image (198).png")
 print(img_to_array(img).shape)
 plt.imshow(img)
-#plt.show() 55
+#plt.show()
 
 
-# Veri artırma yöntemleri
+# Veri arttırma yöntemleri
 train_data = ImageDataGenerator().flow_from_directory(train_files, target_size=(224, 224))
 test_data = ImageDataGenerator().flow_from_directory(test_files, target_size=(224, 224))
 numberOfAirplaneType = 40
