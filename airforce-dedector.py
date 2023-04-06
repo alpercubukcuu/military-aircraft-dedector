@@ -12,7 +12,7 @@ test_files = "airplane-dataset-trans/test/"
 img = load_img(test_files + "A-10_Thunderbolt/image (198).png")
 print(img_to_array(img).shape)
 plt.imshow(img)
-#plt.show() Deneme Görseli
+# plt.show() #Deneme Görseli
 
 
 # Veri arttırma yöntemleri
@@ -28,7 +28,7 @@ model = Sequential()
 model.add(ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3)))
 model.add(GlobalAveragePooling2D())
 
-# Öğrenme işlemini sadece eklenen son katmanda gerçekleştirin
+# Öğrenme işlemini sadece son eklenen katmanda gereçekleşmesi lazım
 for layer in model.layers:
     layer.trainable = False
 
@@ -47,3 +47,4 @@ model.fit(train_data,
           validation_steps=200//batch_size)
 
 
+model.save("planededector")
