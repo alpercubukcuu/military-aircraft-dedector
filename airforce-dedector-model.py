@@ -4,9 +4,9 @@ from PIL import Image
 import numpy as np
 
 
-model = load_model("planededector")
+model = load_model("planedetector2")
 
-img = Image.open('airplane-dataset-trans/test/DC-4/5-614.jpg').resize((224, 224))
+img = Image.open('airplane-dataset-trans/test/\B-2_Spirit/image (96).png').convert('RGB').resize((224, 224))
 data = np.array(img)
 
 print(data.shape, data.ndim)
