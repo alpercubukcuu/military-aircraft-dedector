@@ -21,14 +21,8 @@ img = load_img(test_files + "A-10_Thunderbolt/image (198).png")
 print(img_to_array(img).shape)
 plt.imshow(img)
 
-train_datagen = ImageDataGenerator(
-    horizontal_flip=True,
-    rotation_range=30,
-    width_shift_range=0.2,
-    height_shift_range=0.2,
-    zoom_range=0.2
-)
-test_datagen = ImageDataGenerator()
+train_datagen = ImageDataGenerator(rescale=1. / 255)
+test_datagen = ImageDataGenerator(rescale=1./255)
 
 train_data = train_datagen.flow_from_directory(train_files, target_size=(224, 224), batch_size=32)
 test_data = test_datagen.flow_from_directory(test_files, target_size=(224, 224), batch_size=32)
@@ -47,7 +41,7 @@ model.add(Dense(units=numberOfAirplaneType, activation='softmax'))
 for layer in base_model.layers[:-5]:
     layer.trainable = False
 
-optimizer = Adam(lr=1e-4)
+optimizer = Adam(learning_rate=1e-4)
 model.compile(loss="categorical_crossentropy", optimizer=optimizer, metrics=["accuracy"])
 print(model.summary())
 
@@ -63,9 +57,9 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=3, restore_best_weig
 
 model.fit(train_data,
           steps_per_epoch=steps_per_epoch,
-          epochs=10,
+          epochs=40,
           validation_data=test_data,
           validation_steps=validation_steps,
           callbacks=[early_stopping])
 
-model.save("planedetector2")
+model.save("plane_detector")

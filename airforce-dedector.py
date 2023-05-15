@@ -19,8 +19,8 @@ img = load_img(test_files + "A-10_Thunderbolt/image (198).png")
 print(img_to_array(img).shape)
 plt.imshow(img)
 
-train_data = ImageDataGenerator().flow_from_directory(train_files, target_size=(224, 224), batch_size=32)
-test_data = ImageDataGenerator().flow_from_directory(test_files, target_size=(224, 224), batch_size=32)
+train_data = ImageDataGenerator(rescale=1./255).flow_from_directory(train_files, target_size=(224, 224), batch_size=32)
+test_data = ImageDataGenerator(rescale=1./255).flow_from_directory(test_files, target_size=(224, 224), batch_size=32)
 numberOfAirplaneType = 40
 
 output_shape = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3)).output_shape[1:]
@@ -47,8 +47,8 @@ validation_steps = test_samples // batch_size
 
 model.fit(train_data,
           steps_per_epoch=steps_per_epoch,
-          epochs=5,
+          epochs=10,
           validation_data=test_data,
           validation_steps=validation_steps)
 
-model.save("planedetector")
+model.save("planedetector4")

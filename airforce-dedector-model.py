@@ -4,11 +4,13 @@ from PIL import Image
 import numpy as np
 
 
-model = load_model("planedetector2")
+model = load_model("plane_detector")
 
-img = Image.open('airplane-dataset-trans/test/\B-2_Spirit/image (96).png').convert('RGB').resize((224, 224))
+img = Image.open('airplane-dataset-trans/test/DC-4E/5-365.jpg').convert('RGB').resize((224, 224))
+
 data = np.array(img)
 
+#data = data / 255.0
 print(data.shape, data.ndim)
 
 data = data.reshape(-1, 224, 224, 3)
