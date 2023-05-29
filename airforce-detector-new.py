@@ -8,21 +8,6 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Model
 from keras.callbacks import EarlyStopping
 
-# Checking for available GPUs
-gpus = tf.config.list_physical_devices('GPU')
-for gpu in gpus:
-    print("Name:", gpu.name, " Type:", gpu.device_type)
-
-print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
-
-# Checking for CUDA
-print(tf.test.is_built_with_cuda())
-
-# Checking Python version
-print(sys.version)
-
-# Checking TensorFlow version
-print("Tensorflow version", tf.__version__)
 
 # Splitting the dataset
 dataset_dir = 'airplane-dataset-trans/augmented_train/'
