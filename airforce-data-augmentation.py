@@ -3,8 +3,8 @@ import numpy as np
 from keras.preprocessing.image import ImageDataGenerator
 from keras.utils import load_img, img_to_array, save_img
 
-train_files = "airplane-dataset-trans/train/"
-augmented_files = "airplane-dataset-trans/augmented_train/"
+train_files = "airplane-dataset-trans/test/"
+augmented_files = "airplane-dataset-trans/augmented_test/"
 os.makedirs(augmented_files, exist_ok=True)
 
 # Veri artırma yöntemleri
@@ -31,5 +31,5 @@ for subdir, dirs, files in os.walk(train_files):
         for batch in train_datagen.flow(x, batch_size=1, save_to_dir=os.path.join(augmented_files, subdir_name),
                                         save_prefix='aug', save_format='png'):
             i += 1
-            if i >= 4:  # Sadece 3 kat artırılmış görüntü oluşturuyoruz
+            if i >= 30:  # Sadece 3 kat artırılmış görüntü oluşturuyoruz
                 break

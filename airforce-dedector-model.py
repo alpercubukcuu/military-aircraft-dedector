@@ -1,40 +1,28 @@
 from keras.models import load_model
 from keras.applications.resnet import preprocess_input
+from keras.preprocessing.image import ImageDataGenerator
 from PIL import Image
 import numpy as np
 
+# Load the trained model
+model = load_model("plane_detector-new")
 
-model = load_model("plane_detector")
+# Load the image
+img = Image.open('splitted_dataset_v3/test/F-35_JSF/aug_0_298.png').convert('RGB').resize((224, 224))
 
-img = Image.open('airplane-dataset-trans/test/DC-4E/5-365.jpg').convert('RGB').resize((224, 224))
-
+# Convert the image to a numpy array and preprocess it
 data = np.array(img)
-
-#data = data / 255.0
-print(data.shape, data.ndim)
-
 data = data.reshape(-1, 224, 224, 3)
-
-print(data.shape, data.ndim)
-
 data = preprocess_input(data)
 
-print(data, data.shape)
-
+# Predict the class of the image
 prediction = model.predict(data)
 
-
-img_classes = ["A-10_Thunderbolt", "Airliner", "ATR_72_ASW", "ATR-72_Airliner",
-               "B-1_Lancer", "B-2_Spirit", "B-29_Superfortress", "B-52_Stratofortress",
-               "B-57_Canberra", "BusinessJet", "C-5_Galaxy", "C-17_Globemaster",
-               "C-40_Clipper", "C-130_Hercules", "C-135_Stratolifter", "C-295M_CASA_EADS",
-               "DC-4", "DC-4E", "E-2_Hawkeye", "E-3_Sentry",
-               "EA-6B_Prowler", "F-4_Phantom", "F-15_Eagle", "F-16_Falcon",
-               "F-18_Hornit", "F-22_Raptor", "F-35_JSF", "KC-767_Tanker",
-               "King_Air_Beechcraft_Airliner", "King_Air_Beechcraft_ISR", "LightACHighSetWing", "LightACLowSetWing",
-               "LightACTwinEnginProp", "P-3_Orion", "RC-135_Rivit_Joint", "Su-37_Flanker",
-               "T-1A_Jayhawk_Trainer", "T-43A_Boeing737-253A_Trainer", "Tu-160_Tupolev_White_Swan", "UTA_Fokker_50_Utility_Transport"]
-
+# Use the training class indices to interpret the prediction
+train_datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
+training_set = train_datagen.flow_from_directory('splitted_dataset_v3/train', target_size=(224, 224), color_mode='rgb', batch_size=128, class_mode='categorical')
+class_names = list(training_set.class_indices.keys()) # get the class labels
+class_names.sort() # make sure it's in the correct order
 
 result = np.argmax(prediction[0])
-print(img_classes[result])
+print(class_names[result])
