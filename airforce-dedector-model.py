@@ -8,7 +8,7 @@ import numpy as np
 model = load_model("plane_detector-new")
 
 # Load the image
-img = Image.open('splitted_dataset_v3/test/P-3_Orion/aug_0_485.png').convert('RGB').resize((224, 224))
+img = Image.open('splitted_dataset_v3/test/C-130_Hercules/aug_0_488.png').convert('RGB').resize((224, 224))
 
 
 data = np.array(img)

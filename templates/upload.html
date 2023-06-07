@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Görsel Yükle</title>
+  </head>
+  <body>
+  <div class="div_title">
+     <img class="img-plane" src="{{ url_for('static', filename='plane2.png') }}">
+     <h1 class="title-upload">Uçak Dedektörü</h1>
+    <img class="img-plane" src="{{ url_for('static', filename='plane2.png') }}">
+  </div>
+
+<div class="upload-div">
+  <form action="/" method="post" enctype="multipart/form-data">
+      <input type="file" name="file">
+      <input type="submit" value="Yükle">
+    </form>
+</div>
+
+  </body>
+</html>
+
+<style>
+  .title-upload{
+    text-align: center;
+    font-size: 65px;
+    color: #454545;
+  }
+
+  .img-plane{
+    width: 170px;
+    height: 111px;
+    margin-top: 29px;
+  }
+
+  .div_title{
+      display: flex;
+      justify-content: space-around;
+  }
+
+  .upload-div{
+    text-align: center;
+    border: 7px solid #454545;
+    padding: 116px;
+    width: 60%;
+    border-radius: 36px;
+    margin-left: 179px;
+  }
+
+</style>
